@@ -1,0 +1,40 @@
+
+
+
+
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-size: 1.8rem;
+  
+}
+.main-nav ul {
+  display: flex;
+  gap: 1rem;
+}
+.main-nav ul li a {
+  font-family: "Karla", serif;
+  font-weight: 400;
+  color: #495E57;
+}
+.main-logo {
+  margin-right: 4rem;
+  
+}
+
+.footer-logo {
+  display: block;
+}
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+.footer-nav ul {
+  display: flex;
+  flex-direction: column;
+}
