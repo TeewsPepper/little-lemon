@@ -1,11 +1,11 @@
 import React from 'react'
-import Nav from './Nav'
+import NavFooter from './Nav'
 
 const Footer = () => {
   return (
     <footer> 
         
-        <Nav isFooter={true}/>
+        <NavFooter />
     </footer>
   )
 }

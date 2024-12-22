@@ -1,29 +1,82 @@
-
-
-
-
-
-.main-nav {
+.nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 2rem;
-  font-size: 1.8rem;
-  
+  padding: 1rem 2rem;
 }
-.main-nav ul {
-  display: flex;
-  gap: 1rem;
+.nav .nav-list .nav-item {
+  display: none;
 }
-.main-nav ul li a {
-  font-family: "Karla", serif;
-  font-weight: 400;
-  color: #495E57;
+
+.nav .burger-menu {
+  display: block;
+}
+.burguer-menu {
+  width: 6rem;
 }
 .main-logo {
-  margin-right: 4rem;
+  width: 40%;
+}
+header {
+  
+  background-color: #495E57;
+  color: #F4CE14;
+  margin-bottom: 3rem;
+  padding: 2.5rem 0 2.5rem 2rem;
+}
+.inputs-container {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 1rem 0 3rem 1rem;
+}
+label {
+  font-size: 1rem;
+  font-family: "Karla", serif;
+}
+.login {
+  font-size: .6rem;
+}
+.login a {
+  color: blue;
+}
+legend {
+  font-size: 1rem;
+}
+fieldset {
+  margin: 1rem 2rem 2rem 2rem;
+  padding: 1rem;
+}
+.reservation-type label,
+.dinners label {
+  margin-left: 1rem;
+}
+.date-time {
+  display: inline-flex;
+  flex-direction: column;
+  margin: 2rem;
   
 }
+.date-time input {
+  width:10rem;
+  margin-bottom: 1rem;
+}
+.btn {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  background-color:#495E57;
+  color: #F4CE14;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: .8rem;
+  margin: auto;
+}
+.btn:hover {
+  background-color: #50625c;
+  color: #F4CE14;
+}
+  
 
 .footer-logo {
   display: block;
@@ -37,4 +90,30 @@
 .footer-nav ul {
   display: flex;
   flex-direction: column;
+}
+.success-message {
+  position: fixed;
+  bottom: 4.3rem;
+  right: .7rem;
+  text-align: center;
+  background-color: #495E57;
+  color: #F4CE14;
+  padding: 1.5rem 2.5rem;
+  border-radius: .5rem;
+  box-shadow: 0 .2rem .5rem rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  font-family: "Karla", sans-serif;
+}
+/* Muestra los enlaces y oculta el menú burger en pantallas grandes */
+@media (min-width: 768px) {
+  .nav .nav-list .nav-item {
+    display: inline-block;
+    margin: 0 1rem;
+  }
+
+  .nav .burger-menu {
+    display: none;
+  }
+
+ 
 }

@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <Nav isFooter={false}/>
+      <Nav />
       <Header />
       <Main />
       <Footer />

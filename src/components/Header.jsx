@@ -2,7 +2,9 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <header>Header</header>
+    <header>
+      <h1>BOOK YOUR TABLE!</h1>
+    </header>
   )
 }
 

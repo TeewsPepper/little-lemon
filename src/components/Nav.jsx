@@ -1,26 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const Nav = ({ isFooter = false }) => {
+
+
+const Nav = () => {
   return (
-    <nav className={isFooter ? 'footer-nav' : 'main-nav'}>
-      
-      
-        <img src="./Logo.svg" alt="logo image" width={250} className={isFooter ? 'footer-logo' : 'main-logo'}/>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Menu</a></li>
-        <li><a href="#">Reservations</a></li>
-        <li><a href="#">Order-Online</a></li>
-        {!isFooter && <li><a href="#">Login</a></li>}
+    <nav className="nav">
+      <ul className="nav-list">
+        <li className="burger-menu">
+          <a href="#">
+            <img src="./menu.svg" alt="menu icon" width={30} />
+          </a>
+        </li>
+        <li className="nav-item"><a href="#">Home</a></li>
+        <li className="nav-item"><a href="#">About</a></li>
+        <li className="nav-item"><a href="#">Menu</a></li>
+        <li className="nav-item"><a href="#">Reservations</a></li>
+        <li className="nav-item"><a href="#">Order-Online</a></li>
+        <li className="nav-item"><a href="#">Login</a></li>
       </ul>
+      <img src="./Logo.svg" alt="logo image" width={100} className="main-logo" />
     </nav>
   );
 };
 
-Nav.propTypes = {
-  isFooter: PropTypes.bool, // Define que `isFooter` debe ser un booleano
-};
+
 
 export default Nav;
