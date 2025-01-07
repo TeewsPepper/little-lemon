@@ -21,30 +21,26 @@ body, html {
 main {
   flex: 1;
 }
+
 a {
   text-decoration: none;
 }  
+p {
+  line-height: 1.5;
+  font-size: 1rem;
+  font-family: "Karla", sans-serif;
+}
   
 li {
   list-style-type: none;
 }
 
 h1 {
-  font-size: 2rem;
-  font-family: "Markazi-text", serif;
-  
+  font-size: 4rem;
+  color: #F4CE14;
 }
 h2 {
-  font-size: 1rem;
-  font-family: "Karla", serif;
-  text-transform: uppercase;
-  margin-left: 2rem;
-  color: #495E57;
+  font-size: 1.7rem;
 }
-input {
-  padding: .7rem;
-  border-radius: .8rem;
-  outline: none;
-  border: none;
-}
+
 
