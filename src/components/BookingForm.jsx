@@ -1,26 +1,18 @@
 import React, { useState } from "react";
 import Nav from "./Nav";
 
-const BookingForm = () => {
+const BookingForm = ({ availableTimes, updateTimes, onReserve }) => {
   // Variables de estado para cada campo del formulario
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [guests, setGuests] = useState(1);
   const [occasion, setOccasion] = useState("");
 
-  // Estado para las horas disponibles
-  const [availableTimes, setAvailableTimes] = useState([
-    "17:00",
-    "18:00",
-    "19:00",
-    "20:00",
-    "21:00",
-    "22:00",
-  ]);
 
   // Manejo del envío del formulario
   const handleSubmit = (event) => {
     event.preventDefault();
+    onReserve({ date, time, guests, occasion });
     console.log({
       date,
       time,
@@ -28,6 +20,13 @@ const BookingForm = () => {
       occasion,
     });
     alert("Reservation submitted!");
+  };
+
+   // Manejo del cambio de fecha
+   const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setDate(selectedDate); // Actualiza el estado local de la fecha
+    updateTimes(selectedDate); // Actualiza las horas disponibles
   };
 
   return (
@@ -47,7 +46,8 @@ const BookingForm = () => {
             id="res-date"
             className="form-input"
             value={date}
-            onChange={(e) => setDate(e.target.value)}
+            onChange={handleDateChange}
+            required
           />
 
           {/* Hora */}
@@ -92,6 +92,7 @@ const BookingForm = () => {
             value={occasion}
             onChange={(e) => setOccasion(e.target.value)}
           >
+            <option value="Anniversary">Regular</option>
             <option value="Birthday">Birthday</option>
             <option value="Anniversary">Anniversary</option>
           </select>
