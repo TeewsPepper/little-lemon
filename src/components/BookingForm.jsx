@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import Nav from "./Nav";
+
+
+
 
 const BookingForm = ({ availableTimes, updateTimes, onReserve }) => {
   // Variables de estado para cada campo del formulario
@@ -10,16 +12,17 @@ const BookingForm = ({ availableTimes, updateTimes, onReserve }) => {
 
 
   // Manejo del envío del formulario
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     onReserve({ date, time, guests, occasion });
+
+    
     console.log({
       date,
       time,
       guests,
       occasion,
     });
-    alert("Reservation submitted!");
   };
 
    // Manejo del cambio de fecha
@@ -59,6 +62,7 @@ const BookingForm = ({ availableTimes, updateTimes, onReserve }) => {
             className="form-select"
             value={time}
             onChange={(e) => setTime(e.target.value)}
+            required
           >
             {availableTimes.map((timeOption, index) => (
               <option key={index} value={timeOption}>
@@ -80,6 +84,7 @@ const BookingForm = ({ availableTimes, updateTimes, onReserve }) => {
             max="10"
             value={guests}
             onChange={(e) => setGuests(e.target.value)}
+            required
           />
 
           {/* Ocasión */}
@@ -91,6 +96,7 @@ const BookingForm = ({ availableTimes, updateTimes, onReserve }) => {
             className="form-select"
             value={occasion}
             onChange={(e) => setOccasion(e.target.value)}
+            required
           >
             <option value="Anniversary">Regular</option>
             <option value="Birthday">Birthday</option>

@@ -1,70 +1,90 @@
-import React, { useReducer, useState } from "react";
-import { initializeTimes, updateTimes } from "../utils/times";
+// BookingPage.jsx
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import BookingForm from "../components/BookingForm";
 import BookingSlotsList from "../components/BookingSlotsList";
-
-// Reducer para manejar las horas disponibles
-const timesReducer = (state, action) => {
-  switch (action.type) {
-    case "UPDATE_TIMES":
-      // Aquí podemos agregar lógica para cambiar los horarios según la fecha seleccionada
-      return updateTimes(action.payload); 
-    default:
-      return state;
-  }
-};
-
-// Inicializar las horas disponibles
-const initializeTimes = () => ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
+import { initializeTimes, updateTimes } from "../utils/times";
+import { submitAPI } from "../utils/api"; // Solo importamos submitAPI desde api.js
 
 const BookingPage = () => {
-  const [availableTimes, dispatch] = useReducer(timesReducer, [], initializeTimes);
-  const [reservedTimes, setReservedTimes] = useState([]);
-  const [showSlots, setShowSlots] = useState(false);
+  // src/pages/BookingPage.jsx
+const [bookingData, setBookingData] = useState({
+  availableTimes: initializeTimes(), // Llama a initializeTimes para los horarios iniciales
+  reservedTimes: JSON.parse(localStorage.getItem("reservedTimes") || "[]"), // Verifica si hay datos, de lo contrario usa un array vacío
+});
 
-  // Función para manejar las reservas
-  const handleReservation = (newReservation) => {
-    setReservedTimes((prev) => [...prev, newReservation.time]);
+  const [showSlots, setShowSlots] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const navigate = useNavigate();
+
+  const submitForm = (formData) => {
+    const isReservationSuccess = submitAPI(formData);
+
+    if (isReservationSuccess) {
+      setBookingData((prev) => {
+        const updatedReservedTimes = [...prev.reservedTimes, formData.time];
+        const updatedAvailableTimes = prev.availableTimes.filter(
+          (time) => time !== formData.time
+        );
+
+        localStorage.setItem(
+          "reservedTimes",
+          JSON.stringify(updatedReservedTimes)
+        );
+
+        return {
+          ...prev,
+          reservedTimes: updatedReservedTimes,
+          availableTimes: updatedAvailableTimes,
+        };
+      });
+
+      navigate("/confirmation");
+    } else {
+      alert("Error al procesar la reserva. Inténtelo de nuevo.");
+    }
   };
+
+  useEffect(() => {
+    // Convierte `selectedDate` en un objeto Date si no lo es ya
+    const updatedTimes = updateTimes(new Date(selectedDate));
+    setBookingData((prev) => ({
+      ...prev,
+      availableTimes: updatedTimes,
+    }));
+  }, [selectedDate]);
 
   const toggleSlotsVisibility = () => {
     setShowSlots((prev) => !prev);
   };
 
-  // Función para actualizar las horas disponibles
-  const updateTimes = (date) => {
-    // Aquí puedes agregar lógica para actualizar los horarios según la fecha
-    dispatch({ type: "UPDATE_TIMES", payload: date });
-  };
-
-  // Filtrar las horas disponibles según las horas ya reservadas
   const getAvailableTimes = () => {
-    return availableTimes.filter((time) => !reservedTimes.includes(time));
+    return bookingData.availableTimes.filter(
+      (time) => !bookingData.reservedTimes.includes(time)
+    );
   };
 
   return (
     <>
       <Nav />
       <div className="booking-page">
-        {/* Componente del formulario */}
         <BookingForm
-          availableTimes={getAvailableTimes()} // Solo pasamos las horas disponibles
-          updateTimes={updateTimes}
-          onReserve={handleReservation} // Pasamos la función para manejar reservas
+          availableTimes={getAvailableTimes()}
+          updateTimes={(date) => setSelectedDate(new Date(date))}
+          onReserve={submitForm}
         />
         <div className="toggle-slots-container">
           <button onClick={toggleSlotsVisibility}>
             {showSlots ? "Hide Available Slots" : "Show Available Slots"}
           </button>
         </div>
-
         {showSlots && (
           <BookingSlotsList
-            availableTimes={availableTimes}
-            onReserve={handleReservation}
-            reservedTimes={reservedTimes}
+            availableTimes={getAvailableTimes()}
+            onReserve={submitForm}
+            reservedTimes={bookingData.reservedTimes}
           />
         )}
       </div>

@@ -1,8 +1,10 @@
-// Inicializar las horas disponibles
-export const initializeTimes = () => ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
+import { fetchAPI } from "./api.js";
 
-// Actualizar las horas disponibles según la fecha seleccionada
+// Inicializa los horarios para la fecha actual
+export const initializeTimes = () => {
+  const today = new Date();
+  return fetchAPI(today);
+};
 export const updateTimes = (date) => {
-  // Lógica para actualizar horarios según la fecha. Por ahora devuelve horas estáticas.
-  return ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"];
+  return fetchAPI(date);
 };
